@@ -1,0 +1,2 @@
+id,restaurant_id,food,ambience,service,value,stars,username,userid,date,text,location,tags,keywords
+1,1,5,5,5,5,5,John,1,some_date,This restaurant is amazing,"Sanfrancisco, CA","tasty,cheap","salad,steak"
