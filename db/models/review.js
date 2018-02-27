@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const reviewSchema = mongoose.Schema({
   id: {
     type: Number,
-    unique: true
+    unique: true,
   },
   restaurant_id: Number,
   food: Number,
@@ -20,16 +20,21 @@ const reviewSchema = mongoose.Schema({
   keywords: Array,
 });
 
-let ReviewModel = mongoose.model('Review', reviewSchema);
+const ReviewModel = mongoose.model('Review', reviewSchema);
 
 function findAll(search = {}, sort = {}) {
   return ReviewModel.find(search).sort(sort);
 }
 
+function distinctValues(field) {
+  return ReviewModel.distinct(field);
+}
+
 function insertOne(review) {
-  let newReview = new ReviewModel(review)
+  const newReview = new ReviewModel(review);
   return newReview.save();
 }
 
 exports.findAll = findAll;
 exports.insertOne = insertOne;
+exports.distinctValues = distinctValues;

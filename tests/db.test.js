@@ -1,6 +1,6 @@
+/* eslint-env jest */
 const mongoose = require('mongoose');
-
-const dbModel = require('../db/models/review.js');
+const model = require('../db/models/review.js');
 
 describe('test if reviews db is populated and db model methods work as expected', () => {
   beforeAll(() => {
@@ -10,22 +10,32 @@ describe('test if reviews db is populated and db model methods work as expected'
     mongoose.disconnect(done);
   });
   test('should have data in db', () => {
-    dbModel.findAll()
+    model.findAll()
       .then((data) => {
-        expect(data.length).toBe(5);
+        expect(data.length).toBe(10);
       })
       .catch((err) => {
-        if (err) { throw err; }
+        if (err) throw err;
       });
   });
   test('should be able to query reviews for specific restaurant id', () => {
-    dbModel.findAll({restaurant_id: 1})
+    model.findAll({ restaurant_id: 1 })
       .then((data) => {
         expect(data.length).toBe(5);
-        expect(data[0].restaurant_id).toBe('1');
+        expect(data[0].restaurant_id).toBe(1);
       })
       .catch((err) => {
-        if (err) { throw err; }
+        if (err) throw err;
+      });
+  });
+
+  test('should return distinct restaurant IDs', () => {
+    model.distinctValues('restaurant_id')
+      .then((data) => {
+        expect(data).toEqual([1, 2]);
+      })
+      .catch((err) => {
+        if (err) throw err;
       });
   });
 });
