@@ -1,6 +1,11 @@
+/* global fetch:true
+   global document:true
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import ReviewList from './components/ReviewList';
 
 class App extends React.Component {
   constructor(props) {
@@ -8,14 +13,15 @@ class App extends React.Component {
     this.state = {
       reviews: [],
     };
+    this.getReviews();
   }
   getReviews() {
-    this.get('http://localhost:8000/reviews')
+    this.get('http://localhost:8000/restaurants/1/reviews')
       .then((data) => {
         this.setState({ reviews: data });
       })
       .catch((err) => {
-        console.log(err);
+        throw err;
       });
   }
 
@@ -25,14 +31,14 @@ class App extends React.Component {
         'content-type': 'application/json',
       },
       method: 'GET',
-      })
-        .then(response => response.json())
+    })
+      .then(response => response.json());
   }
 
   render() {
     return (
       <div>
-        <h1>Reviews</h1>
+        <ReviewList reviews={this.state.reviews} />
       </div>
     );
   }
