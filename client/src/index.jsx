@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import './index.css';
 import ReviewList from './components/ReviewList';
 
@@ -14,6 +15,7 @@ class App extends React.Component {
       reviews: [],
     };
     this.getReviews();
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
   getReviews() {
     this.get('http://localhost:8000/restaurants/1/reviews')
@@ -35,10 +37,27 @@ class App extends React.Component {
       .then(response => response.json());
   }
 
+  handleSortChange(value) {
+    const reviewCopy = this.state.reviews.slice();
+    if (value === 'newest') {
+      reviewCopy.sort((a, b) => moment(b.date) - moment(a.date));
+    }
+    if (value === 'highest') {
+      reviewCopy.sort((a, b) => b.stars - a.stars);
+    }
+    if (value === 'lowest') {
+      reviewCopy.sort((a, b) => a.stars - b.stars);
+    }
+    this.setState({ reviews: reviewCopy });
+  }
+
   render() {
     return (
-      <div>
-        <ReviewList reviews={this.state.reviews} />
+      <div className="container">
+        <ReviewList
+          reviews={this.state.reviews}
+          handleSortChange={this.handleSortChange}
+        />
       </div>
     );
   }
