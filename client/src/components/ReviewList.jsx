@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewListEntry from './ReviewListEntry';
-import DropDown from './DropDown'
+import DropDown from './DropDown';
+import Filter from './Filter';
 
 const ReviewList = props => (
   <div className="review-list">
@@ -12,20 +13,33 @@ const ReviewList = props => (
     </div>
 
     <div className="review-filters">
-      <div>Filters</div>
+      <div className="review-filters-title">Filters</div>
+      {props.filterNames.map((filter) =>
+        <Filter
+          filter={filter}
+          id={filter}
+          handleFilterSelect={props.handleFilterSelect}
+        />
+      )}
     </div>
 
-    {props.reviews.map(review =>
+    {props.display.map(review =>
       <ReviewListEntry review={review} />)}
   </div>
 );
 
 ReviewList.defaultProps = {
-  reviews: [{}],
+  display: [{}],
+  filterNames: ['filter'],
+  handleSortChange: () => {},
+  handleFilterSelect: () => {},
 };
 
 ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.object),
+  display: PropTypes.arrayOf(PropTypes.object),
+  filterNames: PropTypes.arrayOf(PropTypes.string),
+  handleSortChange: PropTypes.func,
+  handleFilterSelect: PropTypes.func,
 };
 
 export default ReviewList;
