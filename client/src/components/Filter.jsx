@@ -11,10 +11,10 @@ class Filter extends React.Component {
 
   handleChange(event) {
     if (event.target.checked) {
-      this.setState({value: event.target.value});
+      this.setState({ value: event.target.value });
       this.props.handleFilterSelect(event.target.value, true);
     } else {
-      this.setState({value: ''});
+      this.setState({ value: '' });
       this.props.handleFilterSelect(event.target.value, false);
     }
   }
@@ -23,7 +23,7 @@ class Filter extends React.Component {
     const id = `review-filter-${this.props.id}`;
     return (
       <span>
-        <input type="checkbox" id={id} onChange={this.handleChange} value={ this.props.filter }/>
+        <input type="checkbox" id={id} onChange={this.handleChange} value={this.props.filter} />
         <label className="filter" htmlFor={id} >
           <span>{ this.props.filter }</span>
         </label>
@@ -35,11 +35,13 @@ class Filter extends React.Component {
 Filter.defaultProps = {
   filter: 'food',
   id: 'food',
+  handleFilterSelect: () => {},
 };
 
 Filter.propTypes = {
   filter: PropTypes.string,
   id: PropTypes.string,
+  handleFilterSelect: PropTypes.func,
 };
 
 export default Filter;

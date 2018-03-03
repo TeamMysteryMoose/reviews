@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   getReviews() {
-    this.get('http://localhost:8000/restaurants/1/reviews')
+    this.get(`http://localhost:8000/restaurants/${this.props.restaurantId}/reviews`)
       .then((data) => {
         this.setState({
           reviews: data,
@@ -137,5 +137,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App restaurantId={1} />, document.getElementById('app'));
 
+export default App;

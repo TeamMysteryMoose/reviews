@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-class DropDown extends React.Component {
+class Sort extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 'newest' };
-    this.state = { label: 'Newest' };
+    this.state = {
+      value: 'newest',
+      label: 'Newest',
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -32,4 +35,12 @@ class DropDown extends React.Component {
   }
 }
 
-export default DropDown;
+Sort.defaultProps = {
+  handleSortChange: () => {},
+};
+
+Sort.propTypes = {
+  handleSortChange: PropTypes.func,
+};
+
+export default Sort;

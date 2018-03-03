@@ -67,11 +67,41 @@ const ReviewListEntry = (props) => {
 };
 
 ReviewListEntry.defaultProps = {
-  review: {},
+  review: {
+    id: 1,
+    restaurant_id: 1,
+    food: 5,
+    ambience: 5,
+    service: 5,
+    value: 5,
+    stars: 5,
+    username: 'OpenTable Diner',
+    userid: null,
+    date: '2018-02-25T16:00:00Z',
+    text: 'This place has food',
+    location: 'New York, NY',
+    tags: ['food', 'cheap'],
+    keywords: ['steak', 'salad'],
+  },
 };
 
 ReviewListEntry.propTypes = {
-  review: PropTypes.object,
+  review: PropTypes.shape({
+    id: PropTypes.number,
+    restaurant_id: PropTypes.number,
+    food: PropTypes.number,
+    ambience: PropTypes.number,
+    service: PropTypes.number,
+    value: PropTypes.number,
+    stars: PropTypes.number,
+    username: PropTypes.string,
+    userid: PropTypes.number,
+    date: PropTypes.string,
+    text: PropTypes.string,
+    location: PropTypes.string,
+    tags: PropTypes.array,
+    keywords: PropTypes.array,
+  }),
 };
 
 export default ReviewListEntry;
