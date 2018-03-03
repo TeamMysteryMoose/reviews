@@ -14,7 +14,7 @@ describe('server tests', () => {
     request.get('http://localhost:8000/restaurants/1/reviews', (err, response) => {
       if (err) throw err;
       expect(response.statusCode).toBe(200);
-      expect(JSON.parse(response.body).length).toBe(5);
+      expect(JSON.parse(response.body).length).toBe(10);
     });
   });
 
