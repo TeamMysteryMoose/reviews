@@ -26,3 +26,6 @@ dist/
 
 # vim files
 *.swp
+
+# enzyme
+__snapshots__
