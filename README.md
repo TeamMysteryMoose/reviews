@@ -1,13 +1,12 @@
-# Project Name
+# OpenTable Reviews module clone
 
-> Project description
+> This repository contains a React clone of the OpenTable Reviews module. The backend is made with Express and MongoDB.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/TeamMysteryMoose/menus
+  - https://github.com/TeamMysteryMoose/photos
+  - https://github.com/TeamMysteryMoose/reservations
 
 ## Table of Contents
 
@@ -17,7 +16,14 @@
 
 ## Usage
 
-> Some usage instructions
+> This project requires Node and MongoDB to be installed on your system.
+
+  - Make sure mongo is running.
+  - Seed the database by running the seed.js script from the utilities directory
+
+```
+npm run seed
+```
 
 ## Requirements
 
@@ -33,7 +39,24 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+```
+
+### Running the Server
+
+From within the root directory:
+
+```sh
+npm start
+npm run dev-react
+npm run compile
+```
+
+### Running Tests
+
+From within the root directory:
+
+```sh
+npm test
 ```
 
