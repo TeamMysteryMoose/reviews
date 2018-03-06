@@ -1,12 +1,12 @@
-/* global fetch:true
-   global document:true
+/* global window:true
 */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import './index.css';
+import get from './helpers/http';
 import ReviewList from './components/ReviewList';
 
 class App extends React.Component {
@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   getReviews() {
-    this.get(`http://localhost:8000/restaurants/${this.props.restaurantId}/reviews`)
+    get(`http://localhost:8000/restaurants/${this.props.restaurantId}/reviews`)
       .then((data) => {
         this.setState({
           reviews: data,
@@ -49,8 +49,8 @@ class App extends React.Component {
       });
     });
     this.setState({
-      filters: filters,
-      filterNames: filterNames,
+      filters,
+      filterNames,
     });
   }
 
@@ -68,21 +68,9 @@ class App extends React.Component {
     this.setState({ display: reviewCopy });
   }
 
-  get(url) {
-    return fetch(url, {
-      headers: {
-        'content-type': 'application/json',
-      },
-      method: 'GET',
-    })
-      .then(response => response.json());
-  }
-
   handleFilterSelect(value, checked) {
-    let filteredReviews = [];
-    const filteredReviewIds = [];
-    const usedKeywords = [];
-    let flag = false;
+    const filteredReviews = [];
+    const excludedReviewIds = {};
 
     if (checked) {
       this.state.filters[value] = true;
@@ -90,32 +78,20 @@ class App extends React.Component {
       this.state.filters[value] = false;
     }
 
-    _.each(Object.keys(this.state.filters), (key) => {
-      if (this.state.filters[key]) {
-        _.each(this.state.reviews, (review) => {
-          if (_.indexOf(review.keywords, key) !== -1 &&
-              _.indexOf(filteredReviewIds, review.id) === -1) {
-            flag = true;
-            filteredReviews.push(review);
-            filteredReviewIds.push(review.id);
-            _.each(review.keywords, (keyword) => {
-              if (_.indexOf(usedKeywords, keyword) === -1) {
-                usedKeywords.push(keyword);
-              }
-            });
-            if (usedKeywords.length > review.keywords.length) {
-              flag = 'no-matches';
-            }
-          }
-        });
+    const onFilters = _.filter(Object.keys(this.state.filters), key =>
+      this.state.filters[key]);
+
+    _.each(this.state.reviews, (review) => {
+      _.each(onFilters, (filter) => {
+        if (_.indexOf(review.keywords, filter) === -1 &&
+            !excludedReviewIds[review.id]) {
+          excludedReviewIds[review.id] = review.id;
+        }
+      });
+      if (!excludedReviewIds[review.id]) {
+        filteredReviews.push(review);
       }
     });
-
-    if (!flag) {
-      filteredReviews = this.state.reviews;
-    } else if (flag === 'no-matches') {
-      filteredReviews = [];
-    }
 
     this.setState({
       display: filteredReviews,
@@ -137,6 +113,13 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App restaurantId={1} />, document.getElementById('app'));
+App.defaultProps = {
+  restaurantId: 1,
+};
 
+App.propTypes = {
+  restaurantId: PropTypes.number,
+};
+
+window.App = App;
 export default App;
