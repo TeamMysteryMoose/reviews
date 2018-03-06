@@ -22,7 +22,9 @@ coverage
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
-dist/
+# dist/
+bundle.js
+bundle.js.map
 
 # vim files
 *.swp
