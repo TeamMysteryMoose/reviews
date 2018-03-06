@@ -14,17 +14,17 @@ const ReviewList = props => (
 
     <div className="review-filters">
       <div className="review-filters-title">Filters</div>
-      {props.filterNames.map((filter, index) =>
+      {props.filterNames.map(filter =>
         (<Filter
           filter={filter}
           id={filter}
           handleFilterSelect={props.handleFilterSelect}
-          key={index.toString()}
+          key={filter}
         />))}
     </div>
 
     {props.display.map(review =>
-      <ReviewListEntry review={review} />)}
+      <ReviewListEntry review={review} key={review.id} />)}
   </div>
 );
 
