@@ -13,7 +13,9 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "start": "nodemon server/index.js",
-    "dev-react": "webpack -d --watch"
+    "dev-react": "webpack -d --watch",
+    "compile": "webpack -d",
+    "seed": "node utilites/seed.js"
   },
   "jest": {
     "setupFiles": [
