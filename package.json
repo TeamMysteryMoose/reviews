@@ -15,7 +15,7 @@
     "start": "nodemon server/index.js",
     "dev-react": "webpack -d --watch",
     "compile": "webpack -d",
-    "seed": "node utilites/seed.js"
+    "seed": "node ./utilities/seed.js"
   },
   "jest": {
     "setupFiles": [

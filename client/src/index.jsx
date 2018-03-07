@@ -24,7 +24,8 @@ class App extends React.Component {
   }
 
   getReviews() {
-    get(`http://localhost:8000/restaurants/${this.props.restaurantId}/reviews`)
+    // get(`http://localhost:8000/restaurants/${this.props.restaurantId}/reviews`)
+    get(`/restaurants/${this.props.restaurantId}/reviews`)
       .then((data) => {
         this.setState({
           reviews: data,
