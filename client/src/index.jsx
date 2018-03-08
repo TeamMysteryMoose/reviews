@@ -9,7 +9,7 @@ import './index.css';
 import get from './helpers/http';
 import ReviewList from './components/ReviewList';
 
-class App extends React.Component {
+class ReviewApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,13 +114,13 @@ class App extends React.Component {
   }
 }
 
-App.defaultProps = {
+ReviewApp.defaultProps = {
   restaurantId: 1,
 };
 
-App.propTypes = {
+ReviewApp.propTypes = {
   restaurantId: PropTypes.number,
 };
 
-window.App = App;
-export default App;
+window.ReviewApp = ReviewApp;
+export default ReviewApp;
