@@ -19,11 +19,16 @@ describe('Sort', () => {
     return mountedSort;
   };
 
+  let wrapper;
+  let instance;
+
   beforeEach(() => {
     props = {
       handleSortChange: undefined,
     };
     mountedSort = undefined;
+    wrapper = undefined;
+    instance = undefined;
   });
 
   test('shallow render Sort component', () => {
@@ -43,5 +48,14 @@ describe('Sort', () => {
   test('default state should be newest', () => {
     expect(sort().state().value).toBe('newest');
     expect(sort().state().label).toBe('Newest');
+  });
+
+  test('should update state on change and invoke handeSortChange', () => {
+    wrapper = shallow(<Sort handleSortChange={ jest.fn() } />);
+    instance = wrapper.instance();
+    wrapper.find('Dropdown').simulate('change', { value : 'newest', label: 'Newest' });
+    expect(instance.state.value).toBe('newest');
+    expect(instance.state.label).toBe('Newest');
+    expect(instance.props.handleSortChange).toBeCalled();
   });
 });

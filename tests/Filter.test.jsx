@@ -19,6 +19,9 @@ describe('Filter', () => {
     return mountedFilter;
   };
 
+  let wrapper;
+  let instance;
+
   beforeEach(() => {
     props = {
       filter: undefined,
@@ -26,16 +29,26 @@ describe('Filter', () => {
       handleFilterSelect: undefined,
     };
     mountedFilter = undefined;
+
+    wrapper = undefined;
+    instance = undefined;
   });
 
   test('shallow render Filter component', () => {
-    const wrapper = shallow(<Filter />);
+    wrapper = shallow(<Filter />);
     expect(wrapper).toMatchSnapshot();
   });
 
   test('should render a span', () => {
     const spans = filter().find('span');
-    console.log(spans);
     expect(spans.length).toBeGreaterThan(0);
+  });
+
+  test('should update state to salad by simulating change and invoke handleFilterSelect', () => {
+    wrapper = shallow(<Filter handleFilterSelect={ jest.fn() } />);
+    instance = wrapper.instance();
+    wrapper.find('input').simulate('change', { target: { checked : true, value: 'salad' } });
+    expect(instance.state.value).toBe('salad');
+    expect(instance.props.handleFilterSelect).toBeCalled();
   });
 });
