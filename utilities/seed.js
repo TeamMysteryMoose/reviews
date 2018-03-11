@@ -5,7 +5,8 @@ const _ = require('lodash');
 
 let seedDb = function(data) {
   _.each(data, (review) => {
-    mongoose.connect('mongodb://192.168.99.100:27017/open_table_reviews');
+    //mongoose.connect('mongodb://192.168.99.100:27017/open_table_reviews');
+    mongoose.connect('mongodb://mongo:27017/open_table_reviews');
     //mongoose.connect('mongodb://localhost/open_table_reviews');
     let reviewPromise = dbModel.insertOne(review);
     reviewPromise
